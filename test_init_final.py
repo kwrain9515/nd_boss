@@ -2135,14 +2135,15 @@ class mainCog(commands.Cog):
 			if basicSetting[21] != "1":
 				return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 
+			disName = ctx.message.author.display_name.split('/')[1]
 			msg = ctx.message.content[len(ctx.invoked_with)+1:]
 			sayMessage = msg
 			try:
-				await MakeSound(ctx.message.author.display_name +'님이, ' + sayMessage, './sound/say')
+				await MakeSound(disName +'님이, ' + sayMessage, './sound/say')
 			except:
 				await ctx.send( f"```음성파일 생성에 실패하였습니다.!(amazon polly 사용시 키 값을 확인하세요!)```")
 				return
-			await ctx.send("```< " + ctx.author.display_name + " >님이 \"" + sayMessage + "\"```", tts=False)
+	
 			try:
 				if aws_key != "" and aws_secret_key != "":
 					await PlaySound(ctx.voice_client, './sound/say.mp3')
